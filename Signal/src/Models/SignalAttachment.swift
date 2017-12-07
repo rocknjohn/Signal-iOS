@@ -436,7 +436,7 @@ class SignalAttachment: NSObject {
                     return nil
                 }
                 let dataSource = DataSourceValue.dataSource(with:data, utiType: dataUTI)
-                // Pasted images should not be resized, if possible.
+                // Pasted images _SHOULD _NOT_ be resized, if possible.
                 return imageAttachment(dataSource : dataSource, dataUTI : dataUTI, attachmentQuality:.original)
             }
         }
@@ -632,7 +632,6 @@ class SignalAttachment: NSObject {
 
             guard let dataSource = DataSourceValue.dataSource(with:jpgImageData, fileExtension:"jpg") else {
                 attachment.error = .couldNotConvertToJpeg
-                Logger.verbose("\(TAG) Could not convert \(attachment.mimeType) to image/jpeg")
                 return attachment
             }
 
@@ -663,7 +662,6 @@ class SignalAttachment: NSObject {
                 imageUploadQuality = .low
             case .low:
                 attachment.error = .fileSizeTooLarge
-                Logger.verbose("\(TAG) Image too large to convert \(attachment.mimeType) to image/jpeg")
                 return attachment
             }
         }
